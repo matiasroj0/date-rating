@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Star, StarHalf } from "lucide-react";
+import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import {
