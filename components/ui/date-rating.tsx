@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 
-export default function Component() {
+export default function DateRating() {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -26,11 +26,11 @@ export default function Component() {
 
   const handleSubmit = () => {
     if (rating === 0) {
-      setError("Please select a star rating");
+      setError("Por favor, selecciona una calificación");
       return;
     }
     if (comment.trim() === "") {
-      setError("Please add a comment");
+      setError("Por favor, añade un comentario");
       return;
     }
     setError("");
@@ -47,8 +47,9 @@ export default function Component() {
           size="sm"
           className={`p-0 ${i <= rating ? "text-yellow-400" : "text-gray-300"}`}
           onClick={() => handleStarClick(i)}
+          aria-label={`Calificar ${i} estrellas`}
         >
-          <Star className="h-6 w-6 fill-current" />
+          <Star className="w-5 h-5 fill-current sm:h-6 sm:w-6" />
         </Button>
       );
     }
@@ -56,47 +57,67 @@ export default function Component() {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader>
-        <CardTitle>Rate Your Romantic Date</CardTitle>
-        <CardDescription>How was your experience? Let us know!</CardDescription>
+    <Card className="w-full max-w-md mx-auto shadow-lg">
+      <CardHeader className="p-4 sm:p-6">
+        <CardTitle className="text-lg text-center sm:text-xl">
+          Califica tu Cita
+        </CardTitle>
+        <CardDescription className="text-sm text-center">
+          ¿Cómo fue tu experiencia? ¡Cuéntanos!
+        </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-4 space-y-3 sm:p-6">
         {!submitted ? (
-          <div className="space-y-4">
+          <div className="space-y-3">
             <div>
-              <Label htmlFor="rating">Star Rating</Label>
-              <div className="flex items-center space-x-1 mt-1" id="rating">
+              <Label
+                htmlFor="rating"
+                className="block mb-1 text-sm font-medium"
+              >
+                Calificación por Estrellas
+              </Label>
+              <div
+                className="flex items-center justify-center space-x-1"
+                id="rating"
+              >
                 {renderStars()}
               </div>
             </div>
             <div>
-              <Label htmlFor="comment">Your Comment</Label>
+              <Label
+                htmlFor="comment"
+                className="block mb-1 text-sm font-medium"
+              >
+                Tu Comentario
+              </Label>
               <Textarea
                 id="comment"
-                placeholder="Tell us about your date..."
+                placeholder="Cuéntanos sobre tu cita..."
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
-                className="mt-1"
+                className="w-full"
+                rows={3}
               />
             </div>
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {error && (
+              <p className="text-xs text-center text-red-500">{error}</p>
+            )}
           </div>
         ) : (
-          <div className="space-y-2">
-            <p className="font-semibold">Your Rating: {rating} stars</p>
-            <p>Your Comment: {comment}</p>
+          <div className="space-y-2 text-center">
+            <p className="font-semibold">Tu Calificación: {rating} estrellas</p>
+            <p className="text-sm">Tu Comentario: {comment}</p>
           </div>
         )}
       </CardContent>
-      <CardFooter>
+      <CardFooter className="p-4 sm:p-6">
         {!submitted ? (
           <Button onClick={handleSubmit} className="w-full">
-            Submit Rating
+            Enviar Calificación
           </Button>
         ) : (
-          <p className="text-green-600 font-semibold">
-            Thank you for your feedback!¡
+          <p className="w-full text-sm font-semibold text-center text-green-600">
+            ¡Gracias por tu opinión!
           </p>
         )}
       </CardFooter>
