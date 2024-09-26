@@ -96,7 +96,7 @@ export default function Component() {
           </Button>
         ) : (
           <p className="text-green-600 font-semibold">
-            Thank you for your feedback!
+            Thank you for your feedback!¡
           </p>
         )}
       </CardFooter>
